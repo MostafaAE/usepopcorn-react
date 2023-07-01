@@ -7,6 +7,7 @@ import MovieList from './MovieList';
 import Box from './Box';
 import WatchSummary from './WatchSummary';
 import WatchedMovieList from './WatchedMovieList';
+import Loader from './Loader';
 export const tempMovieData = [
   {
     imdbID: 'tt1375666',
@@ -58,15 +59,18 @@ const KEY = process.env.REACT_APP_API_KEY;
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const query = 'interstellar';
   useEffect(function () {
     async function fetchMovies() {
+      setIsLoading(true);
       const res = await fetch(
         `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
       );
       const data = await res.json();
       setMovies(data.Search);
+      setIsLoading(false);
     }
     fetchMovies();
   }, []);
@@ -77,9 +81,7 @@ export default function App() {
         <NumResults movies={movies} />
       </NavBar>
       <Main>
-        <Box>
-          <MovieList movies={movies} />
-        </Box>
+        <Box>{isLoading ? <Loader /> : <MovieList movies={movies} />}</Box>
         <Box>
           <>
             <WatchSummary watched={watched} />
