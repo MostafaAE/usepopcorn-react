@@ -58,6 +58,10 @@ body {
   position: relative;
 }
 
+.box::-webkit-scrollbar {
+  display: none;
+}
+
 .loader {
   text-align: center;
   text-transform: uppercase;
@@ -143,6 +147,10 @@ body {
 
 .list-watched {
   height: calc(100% - 9rem);
+}
+
+.list::-webkit-scrollbar {
+  display: none;
 }
 
 .list li {

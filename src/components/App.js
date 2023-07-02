@@ -9,6 +9,7 @@ import WatchSummary from './WatchSummary';
 import WatchedMovieList from './WatchedMovieList';
 import Loader from './Loader';
 import ErrorMessage from './ErrorMessage';
+import MovieDetails from './MovieDetails';
 
 export const tempMovieData = [
   {
@@ -64,8 +65,16 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [query, setQuery] = useState('');
-
+  const [selectedId, setSelectedId] = useState('tt1375666');
   const tempQuery = 'interstellar';
+
+  function handleSelectMovie(movieId) {
+    setSelectedId(movieId === selectedId ? null : movieId);
+  }
+
+  function handleCloseMovie() {
+    setSelectedId(null);
+  }
 
   useEffect(
     function () {
@@ -106,15 +115,24 @@ export default function App() {
       </NavBar>
       <Main>
         <Box>
-          {!isLoading && !error && <MovieList movies={movies} />}
+          {!isLoading && !error && (
+            <MovieList movies={movies} onSelectMovie={handleSelectMovie} />
+          )}
           {isLoading && <Loader />}
           {error && <ErrorMessage message={error} />}
         </Box>
         <Box>
-          <>
-            <WatchSummary watched={watched} />
-            <WatchedMovieList watched={watched} />
-          </>
+          {selectedId ? (
+            <MovieDetails
+              selectedId={selectedId}
+              onCloseMovie={handleCloseMovie}
+            />
+          ) : (
+            <>
+              <WatchSummary watched={watched} />
+              <WatchedMovieList watched={watched} />{' '}
+            </>
+          )}
         </Box>
       </Main>
     </>
