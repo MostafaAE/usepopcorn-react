@@ -5,7 +5,6 @@ export default function MovieDetails({
   selectedId,
   onCloseMovie,
   onAddWatched,
-  onGetWatched,
   watched,
 }) {
   const [movie, setMovie] = useState({});
