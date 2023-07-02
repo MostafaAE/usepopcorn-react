@@ -46,6 +46,18 @@ export default function MovieDetails({
     [selectedId]
   );
 
+  useEffect(
+    function () {
+      if (!title) return;
+      document.title = `MOVIE | ${title}`;
+
+      return () => {
+        document.title = 'usePopcorn';
+      };
+    },
+    [title]
+  );
+
   function handleAdd() {
     const newWatchedMovie = {
       imdbID: selectedId,
