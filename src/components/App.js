@@ -58,7 +58,6 @@ export const tempWatchedData = [
   },
 ];
 
-const KEY = process.env.REACT_APP_API_KEY;
 export default function App() {
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
@@ -83,7 +82,7 @@ export default function App() {
           setIsLoading(true);
           setError('');
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&s=${query}`
           );
           if (!res.ok)
             throw new Error('Something went wrong with fetching movies');
