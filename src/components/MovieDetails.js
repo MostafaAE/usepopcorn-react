@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import StarRating from './StarRating';
 import Loader from './Loader';
+import { useKey } from './useKey';
 export default function MovieDetails({
   selectedId,
   onCloseMovie,
@@ -11,9 +12,9 @@ export default function MovieDetails({
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState('');
 
-  const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+  const isWatched = watched.map(movie => movie.imdbID).includes(selectedId);
   const watchedUserRating = watched.find(
-    (movie) => movie.imdbID === selectedId
+    movie => movie.imdbID === selectedId
   )?.userRating;
 
   const {
@@ -58,16 +59,7 @@ export default function MovieDetails({
     [title]
   );
 
-  useEffect(function () {
-    function close(e) {
-      if (e.code === 'Escape') onCloseMovie();
-    }
-    document.addEventListener('keydown', close);
-
-    return function () {
-      document.removeEventListener('keydown', close);
-    };
-  }, []);
+  useKey('Escape', onCloseMovie);
 
   function handleAdd() {
     const newWatchedMovie = {
@@ -83,17 +75,17 @@ export default function MovieDetails({
     onCloseMovie();
   }
   return (
-    <div className='details'>
+    <div className="details">
       {isLoading ? (
         <Loader />
       ) : (
         <>
           <header>
-            <button className='btn-back' onClick={onCloseMovie}>
+            <button className="btn-back" onClick={onCloseMovie}>
               &larr;
             </button>
             <img src={poster} alt={`Poster of ${title} movie`} />
-            <div className='details-overview'>
+            <div className="details-overview">
               <h2>{title}</h2>
               <p>
                 {released} &bull; {runtime}
@@ -106,7 +98,7 @@ export default function MovieDetails({
             </div>
           </header>
           <section>
-            <div className='rating'>
+            <div className="rating">
               {!isWatched ? (
                 <>
                   <StarRating
@@ -115,7 +107,7 @@ export default function MovieDetails({
                     onSetRating={setUserRating}
                   />
                   {userRating > 0 && (
-                    <button className='btn-add' onClick={handleAdd}>
+                    <button className="btn-add" onClick={handleAdd}>
                       + Add to list
                     </button>
                   )}
