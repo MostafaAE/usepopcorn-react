@@ -1,6 +1,8 @@
 # usePopcorn
 
-usePopcorn React Project to practice (Components, props, JSX, useState, state management, useEffect, data fetching, and custom hooks).
+A React Project to practice (Components, props, JSX, useState, state management, useEffect, data fetching, and custom hooks).
+
+usePopcorn is a movie tracking app that empowers users to search for movies using the OMDB API, rate them, and add them to a watched list for efficient tracking of their movie history. This user-friendly web application was built using JavaScript and React.js, facilitating seamless movie discovery and tracking.
 
 ## Live Project
 
